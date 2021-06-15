@@ -1,7 +1,9 @@
 using System;
+using Dapper.Contrib.Extensions;
 
 namespace BaltaDataAccess.Models
 {
+    [Table("Category")]
     public class Category
     {
         public Guid Id { get; set; }
