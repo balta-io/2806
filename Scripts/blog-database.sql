@@ -1,0 +1,53 @@
+CREATE DATABASE [Blog]
+GO
+
+USE [Blog]
+GO
+
+CREATE TABLE [Author] (
+    [Id] INT NOT NULL IDENTITY(1, 1),
+    [Name] VARCHAR(80) NOT NULL,
+    [Email] VARCHAR(200) NOT NULL,
+    [Bio] TEXT NOT NULL,
+    [Image] VARCHAR(2000) NOT NULL,
+
+    CONSTRAINT [PK_Author] PRIMARY KEY([Id])
+)
+
+CREATE TABLE [Category](
+    [Id] INT NOT NULL IDENTITY(1, 1),
+    [Title] VARCHAR(80) NOT NULL,
+    [Slug] VARCHAR(255) NOT NULL,
+
+    CONSTRAINT [PK_Category] PRIMARY KEY([Id])
+)
+
+CREATE TABLE [Post] (
+    [Id] INT NOT NULL IDENTITY(1, 1),
+    [CategoryId] INT NOT NULL,
+    [AuthorId] INT NOT NULL,
+    [Title] VARCHAR(160) NOT NULL,
+    [Summary] VARCHAR(255) NOT NULL,
+    [Body] TEXT NOT NULL,
+    [CreateDate] DATETIME NOT NULL DEFAULT(GETDATE()),
+    [LastUpdateDate] DATETIME NOT NULL DEFAULT(GETDATE()),
+
+    CONSTRAINT [PK_Post] PRIMARY KEY([Id]),
+    CONSTRAINT [FK_Post_Category] FOREIGN KEY([CategoryId]) REFERENCES [Category]([Id]),
+    CONSTRAINT [FK_Post_Author] FOREIGN KEY([AuthorId]) REFERENCES [Author]([Id])
+)
+
+CREATE TABLE [Tag] (
+    [Id] INT NOT NULL IDENTITY(1, 1),
+    [Title] VARCHAR(80) NOT NULL,
+    [Slug] VARCHAR(255) NOT NULL,
+
+    CONSTRAINT [PK_Tag] PRIMARY KEY([Id])
+)
+
+CREATE TABLE [PostTag] (
+    [PostId] INT NOT NULL,
+    [TagId] INT NOT NULL,
+
+    CONSTRAINT PK_PostTag PRIMARY KEY([PostId], [TagId])
+)
