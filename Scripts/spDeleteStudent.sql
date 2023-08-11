@@ -2,7 +2,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER   PROCEDURE [dbo].[spDeleteStudent] (
+CREATE OR ALTER PROCEDURE [dbo].[spDeleteStudent] (
     @StudentId UNIQUEIDENTIFIER
 )
 AS
